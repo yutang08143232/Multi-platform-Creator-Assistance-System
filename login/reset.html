@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./index.css">
+  <title>找回密码</title>
+</head>
+
+<body>
+  <div class="box">
+    <div class="left"></div>
+    <div class="right">
+      <h4>找回密码</h4>
+      <form action="" onsubmit="resetPwd(); return false;">
+        <input class="acc" type="email" id="email" placeholder="注册邮箱">
+        <div style="display: flex; gap: 10px;">
+          <input class="acc" type="text" id="code" placeholder="验证码">
+          <button type="button" onclick="sendCode()">获取验证码</button>
+        </div>
+        <input class="acc" type="password" id="password" placeholder="新密码">
+        <input class="acc" type="password" id="confirmPassword" placeholder="确认新密码">
+        <input class="submit" type="submit" value="重置密码">
+        <div id="msg" style="color: red; margin-top: 10px;"></div>
+      </form>
+      <div class="fn">
+        <a href="login.html">返回登录</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let countdown = 0;
+
+    // 发送验证码
+    async function sendCode() {
+      const email = document.getElementById('email').value.trim();
+      const msgDom = document.getElementById('msg');
+
+      if (!email) {
+        msgDom.innerText = '请输入有效的邮箱';
+        return;
+      }
+
+      if (countdown > 0) return;
+
+      try {
+        const res = await fetch('https://api.yutangxiaowu.cn:/api/user/forgotPassword', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email }),
+          credentials: 'include'
+        });
+        const data = await res.json();
+
+        if (data.code === 0) {
+          msgDom.style.color = 'green';
+          msgDom.innerText = '验证码已发送';
+          countdown = 60;
+          updateCountdown();
+        } else {
+          msgDom.innerText = data.msg;
+        }
+      } catch (err) {
+        msgDom.innerText = '发送失败';
+        console.error(err);
+      }
+    }
+
+    // 倒计时更新
+    function updateCountdown() {
+      const btn = document.querySelector('button[type="button"]');
+      if (countdown > 0) {
+        btn.innerText = `${countdown}s后重发`;
+        countdown--;
+        setTimeout(updateCountdown, 1000);
+      } else {
+        btn.innerText = '获取验证码';
+      }
+    }
+
+    // 重置密码提交
+    async function resetPwd() {
+      const email = document.getElementById('email').value.trim();
+      const code = document.getElementById('code').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const confirmPassword = document.getElementById('confirmPassword').value.trim();
+      const msgDom = document.getElementById('msg');
+
+      if (!email || !code || !password || !confirmPassword) {
+        msgDom.innerText = '请完善所有信息';
+        return;
+      }
+
+      if (password.length < 6 || password.length > 20) {
+        msgDom.innerText = '密码长度至少6位，最多20位';
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        msgDom.innerText = '两次输入的密码不一致';
+        return;
+      }
+
+      try {
+        const res = await fetch('https://api.yutangxiaowu.cn:/api/user/resetPassword', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, code, password }),
+          credentials: 'include'
+        });
+        const data = await res.json();
+
+        if (data.code === 0) {
+          alert('密码重置成功，请登录');
+          window.location.href = 'login.html';
+        } else {
+          msgDom.innerText = data.msg;
+        }
+      } catch (err) {
+        msgDom.innerText = '重置失败';
+        console.error(err);
+      }
+    }
+  </script>
+</body>
+
+</html>

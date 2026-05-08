@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./index.css">
+  <title>登录页</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/blueimp-md5/2.19.0/js/md5.min.js"></script>
+</head>
+
+<body>
+  <div class="box">
+    <div class="left"></div>
+    <div class="right">
+      <h4>用户登录</h4>
+      <form action="" onsubmit="login(); return false;">
+        <input class="acc" type="text" id="username" placeholder="用户名">
+        <input class="acc" type="password" id="password" placeholder="密码">
+        <input class="submit" type="submit" value="Login">
+        <div id="msg" style="color: red; margin-top: 10px;"></div>
+      </form>
+      <div class="fn">
+        <a href="register.html">注册账号</a>
+        <a href="reset.html">找回密码</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 获取URL中的重定向参数
+    function getRedirectUrl() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const redirectUrl = urlParams.get('redirect');
+      const result = redirectUrl || 'https://yutangxiaowu.top';
+      return result;
+    }
+
+    async function login() {
+      const usernameInput = document.getElementById('username');
+      const passwordInput = document.getElementById('password');
+      const username = usernameInput.value.trim();
+      const password = passwordInput.value.trim();
+      const msgDom = document.getElementById('msg');
+      msgDom.innerText = '';
+
+      if (!username || !password) {
+        msgDom.innerText = '请输入用户名/密码';
+        return;
+      }
+
+      try {
+        const res = await fetch('https://api.yutangxiaowu.cn/api/user/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password })
+        });
+        const data = await res.json();
+
+        if (data.code === 0) {
+          const token = data.data.token;
+          // 同时存储到localStorage和cookie中
+          localStorage.setItem('token', token);
+          
+          // 使用cookie存储token
+          const cookieOptions = {
+            path: '/',
+            secure: window.location.protocol === 'https:',
+            httpOnly: false, // 允许JavaScript访问
+            sameSite: 'lax', // 允许跨域请求携带cookie
+            maxAge: 86400 // 1天
+          };
+          
+          let cookieString = `token=${token}`;
+          if (cookieOptions.path) cookieString += `; path=${cookieOptions.path}`;
+          if (cookieOptions.secure) cookieString += '; secure';
+          if (cookieOptions.httpOnly) cookieString += '; HttpOnly';
+          if (cookieOptions.sameSite) cookieString += `; SameSite=${cookieOptions.sameSite}`;
+          if (cookieOptions.maxAge) cookieString += `; max-age=${cookieOptions.maxAge}`;
+          
+          document.cookie = cookieString;
+          
+          // 登录成功后跳转到重定向URL或默认页面
+          window.location.href = getRedirectUrl();
+        } else {
+          msgDom.innerText = data.msg;
+        }
+      } catch (err) {
+        msgDom.innerText = '网络错误';
+        console.error(err);
+      }
+    }
+  </script>
+</body>
+
+</html>

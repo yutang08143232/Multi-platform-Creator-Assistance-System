@@ -1,0 +1,268 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 10px;
+    min-height: 100vh; /* 确保页面高度足够 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+html::before {
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    background: linear-gradient(120deg, #e0c3fc 0%, #ffd1e6 100%) no-repeat;
+}
+
+::selection {
+    color: #fff;
+    background-color: rgb(255,128,171);
+}
+
+.box {
+    display: flex;
+    width: 90rem;
+    max-width: 90%; /* 响应式宽度 */
+    min-height: 55rem; /* 最小高度，内容多会自动撑开 */
+    height: auto; /* 取消固定高度 */
+    background-color: rgba(255,255,255,0.7); /* 稍微增加不透明度 */
+    backdrop-filter: blur(10px); /* 增加毛玻璃效果 */
+    border-radius: 1.5rem;
+    margin: 0; /* 由flex控制居中 */
+    box-shadow: 0 1rem 3rem rgba(0,0,0,0.1); /* 更柔和的阴影 */
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.box:hover {
+    transform: translateY(-5px); /* 鼠标悬停微动 */
+    box-shadow: 0 1.5rem 4rem rgba(0,0,0,0.15);
+}
+
+.box .left {
+    position: relative;
+    width: 40%; /* 调整左侧宽度比例 */
+    min-height: 55rem; /* 保持左侧最小高度 */
+    background-color: skyblue;
+    overflow: hidden;
+}
+
+.box .left::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: url(./left.png);
+    background-size: cover;
+    background-position: center; /* 图片居中显示 */
+    opacity: 0.9;
+    transition: transform 0.5s ease;
+}
+
+.box:hover .left::before {
+    transform: scale(1.05); /* 左侧图片微缩放 */
+}
+
+.box .right {
+    display: flex;
+    width: 60%; /* 右侧对应调整 */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* 垂直居中 */
+    padding: 4rem 2rem; /* 增加内边距 */
+}
+
+.box .right h4 {
+    color: rgb(255,128,171);
+    font-size: 3.2rem; /* 稍微加大标题 */
+    margin-bottom: 3rem; /* 改为底部距离 */
+    letter-spacing: 2px;
+    font-weight: 600;
+}
+
+.box .right form {
+    display: flex;
+    flex-direction: column; /* 垂直排列表单元素 */
+    width: 80%; /* 表单宽度 */
+    gap: 2.5rem; /* 元素间距 */
+}
+
+.box .right form .acc {
+    outline: none;
+    width: 100%;
+    height: 5rem;
+    font-size: 1.6rem;
+    padding: 1rem 1.6rem; /* 调整内边距 */
+    border: none;
+    border-bottom: 2px solid rgba(255,128,171, 0.3); /* 初始淡色边框 */
+    color: #666;
+    background-color: transparent;
+    transition: all 0.3s ease;
+}
+
+/* 验证码区域特殊处理 */
+.box .right form div {
+    display: flex;
+    gap: 10px;
+}
+
+.box .right form div .acc {
+    flex: 1; /* 验证码输入框占剩余空间 */
+}
+
+.right form .acc:focus {
+    outline: none;
+    color: rgb(144,129,241);
+    border-bottom-color: rgb(144,129,241);
+    background-color: rgba(144,129,241, 0.05); /* 聚焦时背景微亮 */
+    padding-left: 2rem; /* 文字微动效果 */
+}
+
+.right form .acc::placeholder {
+    color: #bbb;
+    transition: color 0.3s ease;
+}
+
+.right form .acc:focus::placeholder {
+    color: rgb(144,129,241);
+}
+
+/* 验证码按钮样式调整 */
+.right button[type="button"] {
+    width: 12rem; /* 固定宽度 */
+    height: 5rem;
+    color: #fff;
+    background-image: linear-gradient(120deg, #ffd1e6 0%, #ffb6c1 100%);
+    font-size: 1.4rem;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0.5rem 1rem rgba(255,182,193, 0.3);
+}
+
+.right button[type="button"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0.8rem 1.5rem rgba(255,182,193, 0.4);
+    background-image: linear-gradient(120deg, #ffc1e0 0%, #ffa6b6 100%);
+}
+
+.right button[type="button"]:active {
+    transform: translateY(0);
+}
+
+.right .submit {
+    width: 60%;
+    height: 5rem;
+    color: #fff;
+    background-image: linear-gradient(120deg, #a18cd1 0%, #fbc2eb 100%); /* 更丰富的渐变 */
+    font-size: 1.6rem;
+    border: none;
+    border-radius: 2.5rem; /* 圆角更大 */
+    margin: 2rem auto 0; /* 居中显示 */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0.5rem 1rem rgba(161,140,209, 0.3);
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.right .submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0.8rem 1.5rem rgba(161,140,209, 0.4);
+    background-image: linear-gradient(120deg, #9b7dd1 0%, #fdb4eb 100%);
+}
+
+.right .submit:active {
+    transform: translateY(0);
+}
+
+.right .fn {
+    display: flex;
+    justify-content: center; /* 居中显示 */
+    margin-top: 3rem; /* 调整距离 */
+    width: 100%;
+}
+
+.right .fn a {
+    font-size: 1.3rem;
+    padding: 1rem 2rem;
+    color: #888;
+    text-decoration: none; /* 去除下划线 */
+    transition: all 0.3s ease;
+}
+
+.right .fn a:hover {
+    color: rgb(144,129,241);
+    background-color: rgba(144,129,241, 0.05);
+    border-radius: 2rem;
+}
+
+/* 错误信息样式优化 */
+#msg {
+    text-align: center;
+    font-size: 1.4rem;
+    min-height: 2rem; /* 避免抖动 */
+    font-weight: 500;
+}
+
+/* 移动端适配 */
+@media screen and (max-width: 768px) {
+    html {
+        display: block; /* 移动端恢复默认流式布局 */
+    }
+
+    .box {
+        width: 90%;
+        margin: 10% auto; /* 恢复margin定位 */
+        flex-direction: column; /* 改为垂直排列，虽然隐藏了left，但保持语义 */
+        min-height: auto; /* 高度自适应 */
+        backdrop-filter: none; /* 移动端可能性能受限，减少特效 */
+    }
+    
+    .box:hover {
+        transform: none; /* 移动端取消悬停效果 */
+    }
+
+    .box .left {
+        display: none; /* 隐藏左侧图片区域 */
+    }
+
+    .box .right {
+        width: 100%; /* 右侧占满 */
+        padding: 3rem 2rem;
+    }
+
+    .box .right h4 {
+        font-size: 2.6rem;
+        margin-bottom: 2rem;
+    }
+
+    .box .right form {
+        width: 100%;
+        gap: 2rem;
+    }
+
+    .box .right form .acc {
+        height: 5rem; /* 保持足够的高度方便点击 */
+        font-size: 1.6rem; /* 保持16px防止iOS缩放 */
+    }
+
+    .right .submit {
+        width: 100%; /* 按钮全宽 */
+        margin-top: 1rem;
+    }
+    
+    .right button[type="button"] {
+        width: 11rem; /* 验证码按钮宽度适配 */
+    }
+}

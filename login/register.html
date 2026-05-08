@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./index.css">
+  <title>用户注册</title>
+</head>
+
+<body>
+  <div class="box">
+    <div class="left"></div>
+    <div class="right">
+      <h4>用户注册</h4>
+      <form action="" onsubmit="register(); return false;">
+        <input class="acc" type="email" id="email" placeholder="邮箱">
+        <input class="acc" type="text" id="username" placeholder="用户名">
+        <div style="display: flex; gap: 10px;">
+          <input class="acc" type="text" id="code" placeholder="验证码">
+          <button type="button" onclick="sendCode()">获取验证码</button>
+        </div>
+        <input class="acc" type="password" id="password" placeholder="设置密码">
+        <input class="acc" type="password" id="confirmPassword" placeholder="确认密码">
+        <input class="submit" type="submit" value="注册">
+        <div id="msg" style="color: red; margin-top: 10px;"></div>
+      </form>
+      <div class="fn">
+        <a href="login.html">返回登录</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let countdown = 0;
+
+    // 发送验证码
+    async function sendCode() {
+      const email = document.getElementById('email').value.trim();
+      const msgDom = document.getElementById('msg');
+
+      if (!email) {
+        msgDom.innerText = '请输入有效的邮箱';
+        return;
+      }
+
+      if (countdown > 0) return;
+
+      try {
+        const res = await fetch('https://api.yutangxiaowu.cn/api/user/sendCode', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email }),
+          credentials: 'include'
+        });
+        const data = await res.json();
+
+        if (data.code === 0) {
+          msgDom.style.color = 'green';
+          msgDom.innerText = '验证码已发送';
+          countdown = 60;
+          updateCountdown();
+        } else {
+          msgDom.innerText = data.msg;
+        }
+      } catch (err) {
+        msgDom.innerText = '发送失败';
+        console.error(err);
+      }
+    }
+
+    // 倒计时更新
+    function updateCountdown() {
+      const btn = document.querySelector('button[type="button"]');
+      if (countdown > 0) {
+        btn.innerText = `${countdown}s后重发`;
+        countdown--;
+        setTimeout(updateCountdown, 1000);
+      } else {
+        btn.innerText = '获取验证码';
+      }
+    }
+
+    // 注册提交
+    async function register() {
+      const email = document.getElementById('email').value.trim();
+      const username = document.getElementById('username').value.trim();
+      const code = document.getElementById('code').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const confirmPassword = document.getElementById('confirmPassword').value.trim();
+      const msgDom = document.getElementById('msg');
+
+      if (!email || !username || !code || !password || !confirmPassword) {
+        msgDom.innerText = '请完善所有信息';
+        return;
+      }
+
+      if (password.length < 6 || password.length > 20) {
+        msgDom.innerText = '密码长度至少6位，最多20位';
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        msgDom.innerText = '两次输入的密码不一致';
+        return;
+      }
+
+      if (!/^[a-zA-Z0-9\u4e00-\u9fa5_]+$/.test(username)) {
+        msgDom.innerText = '用户名只能包含字母、汉字、数字和下划线';
+        return;
+      }
+
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        msgDom.innerText = '输入正确的邮箱格式';
+        return;
+      }
+
+      try {
+        const res = await fetch('https://api.yutangxiaowu.cn/api/user/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, username, code, password }),
+          credentials: 'include' // 携带Cookie
+        });
+        const data = await res.json();
+
+        if (data.code === 0) {
+          alert('注册成功，请登录');
+          window.location.href = 'login.html';
+        } else {
+          msgDom.innerText = data.msg;
+        }
+      } catch (err) {
+        msgDom.innerText = '注册失败';
+        console.error(err);
+      }
+    }
+  </script>
+</body>
+
+</html>
