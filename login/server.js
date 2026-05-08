@@ -16,10 +16,10 @@ const PUBLIC_KEY = fs.readFileSync(path.join(__dirname, '../back-end/keys/public
 
 // 数据库配置
 const db = mysql.createConnection({
-    host: '115.159.73.119',
-    user: 'root',
-    password: 'lz13896248574',
-    database: 'login_demo'
+    host: '不展示',
+    user: '不展示',
+    password: '不展示',
+    database: '不展示'
 });
 
 db.connect((err) => {
@@ -243,14 +243,14 @@ function verifyTokenWithBlacklist(req, res, next) {
     }
 }
 
-// 邮件配置
+// 邮件配置   这里是163邮箱
 const transporter = nodemailer.createTransport({
     host: 'smtp.163.com',
     port: 465,
     secure: true,
     auth: {
-        user: 'yutang3416026891@163.com',
-        pass: 'LGRdK32p3AdBwhg9'
+        user: '不展示',
+        pass: '不展示'
     }
 });
 
