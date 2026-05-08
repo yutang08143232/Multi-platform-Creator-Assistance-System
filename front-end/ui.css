@@ -1,0 +1,709 @@
+/* 加载动画1 */
+.newtons-cradle {
+    --uib-size: 50px;
+    --uib-speed: 1.2s;
+    --uib-color: #474554;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--uib-size);
+    height: var(--uib-size);
+    margin: 0 auto;
+}
+
+.newtons-cradle__dot {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 25%;
+    transform-origin: center top;
+}
+
+.newtons-cradle__dot::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 25%;
+    border-radius: 50%;
+    background-color: var(--uib-color);
+}
+
+.newtons-cradle__dot:first-child {
+    animation: swing var(--uib-speed) linear infinite;
+}
+
+.newtons-cradle__dot:last-child {
+    animation: swing2 var(--uib-speed) linear infinite;
+}
+
+@keyframes swing {
+    0% {
+        transform: rotate(0deg);
+        animation-timing-function: ease-out;
+    }
+
+    25% {
+        transform: rotate(70deg);
+        animation-timing-function: ease-in;
+    }
+
+    50% {
+        transform: rotate(0deg);
+        animation-timing-function: linear;
+    }
+}
+
+@keyframes swing2 {
+    0% {
+        transform: rotate(0deg);
+        animation-timing-function: linear;
+    }
+
+    50% {
+        transform: rotate(0deg);
+        animation-timing-function: ease-out;
+    }
+
+    75% {
+        transform: rotate(-70deg);
+        animation-timing-function: ease-in;
+    }
+}
+
+/* 加载动画2 */
+#ghost {
+    position: relative;
+    scale: 0.8;
+    margin: 20px auto;
+    width: 140px;
+    height: 180px;
+}
+
+#red {
+    animation: upNDown infinite 0.5s;
+    position: relative;
+    width: 140px;
+    height: 140px;
+    display: grid;
+    grid-template-columns: repeat(14, 1fr);
+    grid-template-rows: repeat(14, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    grid-template-areas:
+        "a1  a2  a3  a4  a5  top0  top0  top0  top0  a10 a11 a12 a13 a14"
+        "b1  b2  b3  top1 top1 top1 top1 top1 top1 top1 top1 b12 b13 b14"
+        "c1 c2 top2 top2 top2 top2 top2 top2 top2 top2 top2 top2 c13 c14"
+        "d1 top3 top3 top3 top3 top3 top3 top3 top3 top3 top3 top3 top3 d14"
+        "e1 top3 top3 top3 top3 top3 top3 top3 top3 top3 top3 top3 top3 e14"
+        "f1 top3 top3 top3 top3 top3 top3 top3 top3 top3 top3 top3 top3 f14"
+        "top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4"
+        "top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4"
+        "top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4"
+        "top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4"
+        "top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4"
+        "top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4"
+        "st0 st0 an4 st1 an7 st2 an10 an10 st3 an13 st4 an16 st5 st5"
+        "an1 an2 an3 an5 an6 an8 an9 an9 an11 an12 an14 an15 an17 an18";
+}
+
+@keyframes upNDown {
+
+    0%,
+    49% {
+        transform: translateY(0px);
+    }
+
+    50%,
+    100% {
+        transform: translateY(-10px);
+    }
+}
+
+#top0,
+#top1,
+#top2,
+#top3,
+#top4,
+#st0,
+#st1,
+#st2,
+#st3,
+#st4,
+#st5 {
+    background-color: red;
+}
+
+#top0 {
+    grid-area: top0;
+}
+
+#top1 {
+    grid-area: top1;
+}
+
+#top2 {
+    grid-area: top2;
+}
+
+#top3 {
+    grid-area: top3;
+}
+
+#top4 {
+    grid-area: top4;
+}
+
+#st0 {
+    grid-area: st0;
+}
+
+#st1 {
+    grid-area: st1;
+}
+
+#st2 {
+    grid-area: st2;
+}
+
+#st3 {
+    grid-area: st3;
+}
+
+#st4 {
+    grid-area: st4;
+}
+
+#st5 {
+    grid-area: st5;
+}
+
+#an1 {
+    grid-area: an1;
+    animation: flicker0 infinite 0.5s;
+}
+
+#an18 {
+    grid-area: an18;
+    animation: flicker0 infinite 0.5s;
+}
+
+#an2 {
+    grid-area: an2;
+    animation: flicker1 infinite 0.5s;
+}
+
+#an17 {
+    grid-area: an17;
+    animation: flicker1 infinite 0.5s;
+}
+
+#an3 {
+    grid-area: an3;
+    animation: flicker1 infinite 0.5s;
+}
+
+#an16 {
+    grid-area: an16;
+    animation: flicker1 infinite 0.5s;
+}
+
+#an4 {
+    grid-area: an4;
+    animation: flicker1 infinite 0.5s;
+}
+
+#an15 {
+    grid-area: an15;
+    animation: flicker1 infinite 0.5s;
+}
+
+#an6 {
+    grid-area: an6;
+    animation: flicker0 infinite 0.5s;
+}
+
+#an12 {
+    grid-area: an12;
+    animation: flicker0 infinite 0.5s;
+}
+
+#an7 {
+    grid-area: an7;
+    animation: flicker0 infinite 0.5s;
+}
+
+#an13 {
+    grid-area: an13;
+    animation: flicker0 infinite 0.5s;
+}
+
+#an9 {
+    grid-area: an9;
+    animation: flicker1 infinite 0.5s;
+}
+
+#an10 {
+    grid-area: an10;
+    animation: flicker1 infinite 0.5s;
+}
+
+#an8 {
+    grid-area: an8;
+    animation: flicker0 infinite 0.5s;
+}
+
+#an11 {
+    grid-area: an11;
+    animation: flicker0 infinite 0.5s;
+}
+
+@keyframes flicker0 {
+
+    0%,
+    49% {
+        background-color: red;
+    }
+
+    50%,
+    100% {
+        background-color: transparent;
+    }
+}
+
+@keyframes flicker1 {
+
+    0%,
+    49% {
+        background-color: transparent;
+    }
+
+    50%,
+    100% {
+        background-color: red;
+    }
+}
+
+#eye {
+    width: 40px;
+    height: 50px;
+    position: absolute;
+    top: 30px;
+    left: 10px;
+}
+
+#eye::before {
+    content: "";
+    background-color: white;
+    width: 20px;
+    height: 50px;
+    transform: translateX(10px);
+    display: block;
+    position: absolute;
+}
+
+#eye::after {
+    content: "";
+    background-color: white;
+    width: 40px;
+    height: 30px;
+    transform: translateY(10px);
+    display: block;
+    position: absolute;
+}
+
+#eye1 {
+    width: 40px;
+    height: 50px;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+}
+
+#eye1::before {
+    content: "";
+    background-color: white;
+    width: 20px;
+    height: 50px;
+    transform: translateX(10px);
+    display: block;
+    position: absolute;
+}
+
+#eye1::after {
+    content: "";
+    background-color: white;
+    width: 40px;
+    height: 30px;
+    transform: translateY(10px);
+    display: block;
+    position: absolute;
+}
+
+#pupil {
+    width: 20px;
+    height: 20px;
+    background-color: blue;
+    position: absolute;
+    top: 50px;
+    left: 10px;
+    z-index: 1;
+    animation: eyesMovement infinite 3s;
+}
+
+#pupil1 {
+    width: 20px;
+    height: 20px;
+    background-color: blue;
+    position: absolute;
+    top: 50px;
+    right: 50px;
+    z-index: 1;
+    animation: eyesMovement infinite 3s;
+}
+
+@keyframes eyesMovement {
+
+    0%,
+    49% {
+        transform: translateX(0px);
+    }
+
+    50%,
+    99% {
+        transform: translateX(10px);
+    }
+
+    100% {
+        transform: translateX(0px);
+    }
+}
+
+#shadow {
+    background-color: black;
+    width: 140px;
+    height: 140px;
+    position: absolute;
+    border-radius: 50%;
+    transform: rotateX(80deg);
+    filter: blur(20px);
+    top: 80%;
+    animation: shadowMovement infinite 0.5s;
+}
+
+@keyframes shadowMovement {
+
+    0%,
+    49% {
+        opacity: 0.5;
+    }
+
+    50%,
+    100% {
+        opacity: 0.2;
+    }
+}
+
+
+/* 下载按钮 */
+.button-excel {
+    position: relative;
+    width: 150px;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border: 1px solid #17795E;
+    background-color: #209978;
+    overflow: hidden;
+}
+
+.button-excel,
+.button-excel__icon,
+.button-excel__text {
+    transition: all 0.3s;
+}
+
+.button-excel__text {
+    transform: translateX(22px);
+    color: #fff;
+    font-weight: 600;
+}
+
+.button-excel__icon {
+    position: absolute;
+    transform: translateX(109px);
+    height: 100%;
+    width: 39px;
+    background-color: #17795E;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button-excel .svg {
+    width: 20px;
+    fill: #fff;
+}
+
+.button-excel:hover {
+    background: #17795E;
+}
+
+.button-excel:hover .button-excel__text {
+    color: transparent;
+}
+
+.button-excel:hover .button-excel__icon {
+    width: 148px;
+    transform: translateX(0);
+}
+
+.button-excel:active .button-excel__icon {
+    background-color: #146c54;
+}
+
+.button-excel:active {
+    border: 1px solid #146c54;
+}
+
+/* 推荐最佳视频按钮 */
+.button-recommend {
+    cursor: pointer;
+    --c: #23ade5;
+    padding: 0 1.2rem;
+    height: 40px;
+    position: relative;
+    background: var(--c);
+    font-size: 1rem;
+    font-weight: 600;
+    color: white;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: sans-serif;
+    letter-spacing: 0.1em;
+    border: 2px solid var(--c);
+    border-radius: 4px;
+    overflow: hidden;
+    z-index: 1;
+    transition: 0.5s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button-recommend:hover {
+    background: white;
+    color: var(--c);
+}
+
+
+
+.button-recommend span {
+    position: absolute;
+    width: 25%;
+    height: 100%;
+    background-color: white;
+    transform: translateY(150%);
+    border-radius: 50%;
+    left: calc((var(--n) - 1) * 25%);
+    transition: 0.5s;
+    transition-delay: calc((var(--n) - 1) * 0.1s);
+    z-index: -1;
+}
+
+
+.button-recommend:hover span {
+    transform: translateY(0) scale(2);
+}
+
+
+.button-recommend span:nth-child(1) {
+    --n: 1;
+}
+
+
+.button-recommend span:nth-child(2) {
+    --n: 2;
+}
+
+
+.button-recommend span:nth-child(3) {
+    --n: 3;
+}
+
+
+.button-recommend span:nth-child(4) {
+    --n: 4;
+}
+
+/* 历史查询按钮 */
+.button-recent-data {
+    --main-size: 2em;
+    --color-text: #ffffff;
+    --color-background: #4e87d8;
+    --color-background-hover: #309bc2;
+    --color-outline: #18e59dc7;
+    --color-shadow: #21d5dfb9;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    border: none;
+    border-radius: calc(var(--main-size) * 100);
+    padding: 0.33em 0 0.33em 0.66em;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-size: var(--main-size);
+    color: var(--color-text);
+    background: var(--color-background);
+    box-shadow: 0 0 0.2em 0 var(--color-background);
+    transition: 1s;
+}
+
+.button-recent-data:active {
+    transform: scale(0.95);
+}
+
+.button-recent-data:hover {
+    outline: 0.1em solid transparent;
+    outline-offset: 0.2em;
+    box-shadow: 0 0 1em 0 var(--color-background);
+    animation:
+        ripple 1s linear infinite,
+        colorize 1s infinite;
+    transition: 0.5s;
+}
+
+.button-recent-data span {
+    margin-right: 0.3em;
+    transition: 0.5s;
+}
+
+.button-recent-data:hover span {
+    text-shadow: 5px 5px 5px var(--color-shadow);
+}
+
+.button-recent-data:active span {
+    text-shadow: none;
+}
+
+.button-recent-data svg {
+    height: 0.8em;
+    fill: var(--color-text);
+    margin-right: -0.16em;
+    position: relative;
+    transition: 0.5s;
+}
+
+.button-recent-data:hover svg {
+    margin-right: 0.66em;
+    transition: 0.5s;
+    filter: drop-shadow(5px 5px 2.5px var(--color-shadow));
+}
+
+.button-recent-data:active svg {
+    filter: none;
+}
+
+.button-recent-data svg polygon:nth-child(1) {
+    transition: 0.4s;
+    transform: translateX(-60%);
+}
+
+.button-recent-data svg polygon:nth-child(2) {
+    transition: 0.5s;
+    transform: translateX(-30%);
+}
+
+.button-recent-data:hover svg polygon:nth-child(1) {
+    transform: translateX(0%);
+    animation: opacity 1s infinite 0.6s;
+}
+
+.button-recent-data:hover svg polygon:nth-child(2) {
+    transform: translateX(0%);
+    animation: opacity 1s infinite 0.4s;
+}
+
+.button-recent-data:hover svg polygon:nth-child(3) {
+    animation: opacity 1s infinite 0.2s;
+}
+
+@keyframes opacity {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes colorize {
+    0% {
+        background: var(--color-background);
+    }
+
+    50% {
+        background: var(--color-background-hover);
+    }
+
+    100% {
+        background: var(--color-background);
+    }
+}
+
+@keyframes ripple {
+    0% {
+        outline: 0em solid transparent;
+        outline-offset: -0.1em;
+    }
+
+    50% {
+        outline: 0.2em solid var(--color-outline);
+        outline-offset: 0.2em;
+    }
+
+    100% {
+        outline: 0.4em solid transparent;
+        outline-offset: 0.4em;
+    }
+}
+
+/* 爱心飘落动画 */
+.heart-fall {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.heart {
+    position: absolute;
+    font-size: 30px;
+    top: -20px;
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateX(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(900px) rotate(360deg);
+        opacity: 0;
+        top: 100vh;
+    }
+}

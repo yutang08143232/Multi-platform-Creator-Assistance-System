@@ -1,0 +1,7 @@
+Flask
+requests
+playwright
+PyJWT
+cryptography
+flask-cors
+beautifulsoup4

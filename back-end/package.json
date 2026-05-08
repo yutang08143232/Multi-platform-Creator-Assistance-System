@@ -1,0 +1,30 @@
+{
+  "name": "bili-video",
+  "version": "1.0.0",
+  "description": "",
+  "main": "bili.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "axios": "^1.11.0",
+    "axios-cookiejar-support": "^6.0.4",
+    "body-parser": "^2.2.0",
+    "cors": "^2.8.5",
+    "docx": "^9.5.1",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "html2canvas": "^1.4.1",
+    "http-proxy-middleware": "^3.0.5",
+    "jsonwebtoken": "^9.0.3",
+    "md5": "^2.3.0",
+    "multer": "^2.0.2",
+    "mysql2": "^3.15.3",
+    "node-fetch": "^2.7.0",
+    "tough-cookie": "^6.0.0"
+  }
+}
