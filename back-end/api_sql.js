@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 
 // 本地数据库配置
 const dbConfig = {
-    host: '115.159.73.119',       // 本地数据库主机
+    host: 'process.env.DB_HOST',       // 本地数据库主机
     user: process.env.DB_USER,            // 本地数据库用户名
     password: process.env.DB_PASSWORD, // 本地数据库密码
     database: 'api_call_stats', // 数据库名
@@ -26,7 +26,7 @@ const dbConfig = {
 };
 
 const dbConfigVideo = {
-    host: '115.159.73.119',       // 本地数据库主机
+    host: 'process.env.DB_HOST',       // 本地数据库主机
     user: process.env.DB_USER,            // 本地数据库用户名
     password: process.env.DB_PASSWORD, // 本地数据库密码
     database: 'data_video', // 数据库名
@@ -37,7 +37,7 @@ const dbConfigVideo = {
 };
 
 const dbConfigCookie = {
-    host: '115.159.73.119',       // 本地数据库主机
+    host: 'process.env.DB_HOST',       // 本地数据库主机
     user: process.env.DB_USER,            // 本地数据库用户名
     password: process.env.DB_PASSWORD, // 本地数据库密码
     database: 'cookie_list', // 数据库名
