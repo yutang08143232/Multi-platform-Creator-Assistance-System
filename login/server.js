@@ -14,12 +14,12 @@ app.set('trust proxy', true); // 信任 Nginx 代理
 const PRIVATE_KEY = fs.readFileSync(path.join(__dirname, '../back-end/keys/private.pem'));
 const PUBLIC_KEY = fs.readFileSync(path.join(__dirname, '../back-end/keys/public.pem'));
 
-// 数据库配置
+// 数据库配置    (本来应该用env写环境变量的，但是懒得改就这样吧)
 const db = mysql.createConnection({
-    host: '115.159.73.119',
-    user: 'root',
-    password: 'lz13896248574',
-    database: 'login_demo'
+    host: 'your host',
+    user: 'your user',
+    password: 'your password',
+    database: 'your datebase'
 });
 
 db.connect((err) => {
@@ -63,6 +63,7 @@ db.connect((err) => {
 
 // 中间件配置
 app.use(cors({
+    //示例，这个是用的我自己的域名
     origin: ['null', 'https://www.yutangxiaowu.cn' , 'https://yutangxiaowu.top' ,  "http://localhost:9100" , "https://api.yutangxiaowu.cn:9100"], 
     credentials: true
 }));
@@ -121,14 +122,14 @@ app.post('/api/user/login', (req, res) => {
     });
 });
 
-// 邮件配置
+// 邮件配置   这里是用的163
 const transporter = nodemailer.createTransport({
     host: 'smtp.163.com',
     port: 465,
     secure: true,
     auth: {
-        user: 'yutang3416026891@163.com',
-        pass: 'LGRdK32p3AdBwhg9'
+        user: 'your user',
+        pass: 'your pass'
     }
 });
 
