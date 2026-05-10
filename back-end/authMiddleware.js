@@ -6,10 +6,10 @@ const mysql = require('mysql2');
 const JWT_PUBLIC_KEY = fs.readFileSync(path.join(__dirname, 'keys/public.pem'));
 
 const db = mysql.createConnection({
-    host: '115.159.73.119',
-    user: 'root',
-    password: 'lz13896248574',
-    database: 'login_demo'
+    host: '',
+    user: '',
+    password: '',
+    database: ''
 });
 
 db.connect((err) => {
