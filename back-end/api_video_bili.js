@@ -1,16 +1,16 @@
-const express = require('express');                            // 引入Express框架，核心用于搭建路由
+const express = require('express'); 
 const app = express();
 const fs = require('fs');
 const http = require('http');
 const https = require('https');
 const cors = require('cors');
-const md5 = require('md5');                                     // 引入md5库用于生成WBI签名
-const axios = require('axios');                                 // 引入axios库用于HTTP请求
-const fetch = require('node-fetch');                            // 引入node-fetch库用于HTTP请求
+const md5 = require('md5');
+const axios = require('axios');    
+const fetch = require('node-fetch'); 
 const { decapsulate } = require('crypto');
 const { type } = require('os');
 const verifyToken = require('./authMiddleware');
-require('dotenv').config({ path: './env.env' });                // 引入dotenv用于加载环境变量
+require('dotenv').config({ path: './env.env' });
 
 
 app.use(express.json());
